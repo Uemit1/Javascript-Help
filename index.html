@@ -1,0 +1,143 @@
+<html>
+	<head>
+		<title> Animation </title>
+		<link rel="stylesheet" href="style.css"
+	</head>
+		<body>
+			<!-- Erste Szene -->  
+			<div class="background">
+				<div class="bubble bubble-bottom-left" id="bubble" contenteditable>Heute ist mal wieder nichts los...</div>
+                <div class="bubble2 bubble-bottom-left2" id="bubble2" contenteditable>Jeden Tag das selbe...</div>
+                <div class="bubble3 bubble-bottom-left3" id="bubble3" contenteditable>Nie ist hier etwas los...</div>
+                <div class="bubble4 bubble-bottom-left4" id="bubble4" contenteditable>Was ist das denn?!</div>
+                <div class="bubble5 bubble-bottom-left5" id="bubble5" contenteditable>Schnell weg hier!</div>
+                <div class="bubble6 bubble-bottom-left6" id="bubble6" contenteditable>Ich wünschte ich hätte meinen normalen Alltag zurück!</div>
+				<div class="hero-container">
+					<img src="hero.png" id="hero"/>
+				</div>
+				<div class="hero-container-2">
+					<img src="hero2.png" id="hero2" />
+				</div>
+                <div class="hero-container-3">
+					<img src="hero.png" id="hero3" />
+				</div>
+                <div class="hero-container-4">
+					<img src="hero2.png" id="hero4" />
+				</div>
+                <div class="hero-container-5">
+					<img src="hero.png" id="hero5" />
+				</div>
+                <div class="dragon-container">
+					<img src="dragon.png" id="dragon" />
+				</div>
+				<div id="message"> 
+					Klick auf den Linken Charakter damit es los geht!        
+				</div>
+				<button onclick="second_Scene()" id="Scene2">
+					Weiter
+					</button>
+                <button onclick="third_Scene()" id="Scene3">
+					Weiter
+					</button>
+			</div>
+			<script>
+                document.querySelector(".hero-container-3").style.display = 'none';
+                document.querySelector(".hero-container-4").style.display = 'none';
+                document.querySelector(".hero-container-5").style.display = 'none';
+                document.querySelector(".dragon-container").style.display = 'none';
+				bubble.style.display = 'none';
+                bubble2.style.display = 'none';
+                bubble3.style.display = 'none';
+                bubble4.style.display = 'none';
+                bubble5.style.display = 'none';
+                bubble6.style.display = 'none';
+                Scene2.style.display ='none';
+                Scene3.style.display ='none';
+                
+				const heroContainer = document.querySelector('.hero-container');
+                const heroContainer4 = document.querySelector('.hero-container-4');
+                const heroContainer5 = document.querySelector('.hero-container-5');
+				let left = 0;
+				var number = 1;
+				var footsteps = new Audio ('steps.mp3');
+				var message = document.getElementById('message');
+				footsteps.volume = .5;
+				function moveRight() {
+					left = left + 20;
+					if (left >=350) {
+										hero.src='hero.png';
+										bubble.style.display = 'inline';
+                                        Scene2.style.display ='inline';
+										return; }
+					if(number > 8){
+										number=1;
+									}
+					if (number == 1 || number == 5){ footsteps.currentTime = 0;
+										footsteps.play(); }
+					heroContainer.style.left = left + 'px';
+					hero.src='hero_walking_'+number+'.png';
+					number = number+1;
+					setTimeout(moveRight,150);
+								}
+                
+                //für die dritte Szene| Ausrichtung+ Größe ist dort allerdings geändert
+                function moveRight2() {
+					left = left + 20;
+					if (left >=350) {
+										hero4.src='hero.png';
+										return; }
+					if(number > 8){
+										number=1;
+									}
+					if (number == 1 || number == 5){ footsteps.currentTime = 0;
+										footsteps.play(); }
+					heroContainer5.style.left = left + 'px';
+					hero5.src='hero_walking_'+number+'.png';
+					number = number+1;
+					setTimeout(moveRight,150);
+								}
+                
+				var start = function() { message.style.display = 'none';
+									moveRight(); }
+    
+				heroContainer.addEventListener("click", start);
+				// Ende der ersten Szene
+                
+                // Anfang der zweiten Szene
+				const second_Scene=()=>{
+									document.querySelector(".background").style.background="url(schloss.png)";
+                                    // er Soll durch das Linke Fenster gucken und wenn man auf ihn klickt oder auf ein Button soll eine andere Sprechblase erscheinen "Jeden Tag das Selbe..."
+                                    bubble.style.display = 'none';
+                                    Scene2.style.display = 'none';
+                                    document.querySelector(".hero-container").style.display = 'none';
+                                    document.querySelector(".hero-container-2").style.display = 'none';
+                                    document.querySelector(".hero-container-3").style.display = 'inline';
+                                    bubble2.style.display = 'inline';
+                                    var start2 = function() { bubble2.style.display = 'none';
+									bubble3.style.display = 'inline'; Scene3.style.display ='inline'; }
+                                    document.querySelector('.hero-container-3').addEventListener("click", start2);
+								}
+                //Ende der zweiten Szene
+                
+                //Anfang der dritten Szene
+                const third_Scene=()=>{
+									document.querySelector(".background").style.background="url(wald2.png)";
+                                    document.querySelector(".hero-container-3").style.display = 'none';
+                                    document.querySelector(".hero-container-4").style.display = 'inline';
+                                    bubble3.style.display = 'none';
+                                    Scene3.style.display = 'none';
+                                    document.querySelector(".dragon-container").style.display = 'inline';
+                                    bubble4.style.display = 'inline';
+                                    var start3 = function() { bubble4.style.display = 'none';
+									bubble5.style.display = 'inline';}
+                                    document.querySelector('.hero-container-4').addEventListener("click", start3);
+                                    var runaway = function(){bubble5.style.display = 'none'; moveRight2();
+                                    }
+                                    heroContainer4.addEventListener("click", runaway);
+                                    
+                    }
+                //Die werden angegrifen und er denkt sich hätte ich mal lieber mein Alltag zurück.
+                
+			</script>
+		</body>
+</html> 
